@@ -1,0 +1,33 @@
+comando 
+> node 
+per avviare il promp che usa node
+
+lanciamo un numero random
+> Math.random()
+0.2797560662402807
+
+definire una variabile assegnandole il valore:
+> let x = 2;
+undefined
+> ++x
+3
+> x
+3
+> function add(a, b) {return a+b;}
+undefined
+> add(1, x)
+4
+>
+
+ctrl+d per uscire dalla modalità interattiva, oppure digitare .exit e poi invio
+
+per salvare in un file le istruzioni digitate:
+.save
+
+per caricare e visualizzare il contenuto di un file contente codice javascript:
+.load
+
+ctrl+c per interrompere l'esecuzione senza uscire dalla sessione
+
+per eseguire un file .js (passare il path del file relativo o assoluto)
+node hello.js
