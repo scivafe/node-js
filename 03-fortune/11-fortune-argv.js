@@ -1,5 +1,9 @@
 const fs = require("fs");
 
+// passiamo il nome della cartella come argomento quando eseguiamo l'applicazione
+// argv è un array contenente tutti gli argomenti passati al processo node al suo avvio (es. > node 11-fortune-argv.js ./filosofia)
+// Il primo elemento di argv è il path assoluto all'eseguibile che ha avviato il processo node, mentre dal secondo in poi sono
+// i parametri (stringhe) passati al programma da eseguire (in questo caso il nome della cartella in cui leggere le citazioni)
 const QUOTES_DIR = process.argv[2];
 
 fs.readdir(QUOTES_DIR, { withFileTypes: true }, (err, files) => {

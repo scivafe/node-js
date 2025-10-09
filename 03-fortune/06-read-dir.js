@@ -5,5 +5,6 @@ fs.readdir("./data", (err, files) => {
         console.log("Error while reading data directory");
         return;
     }
+    // files è l'elenco dei file trovati nella cartella (sono solo i nomi dei file trovati)
     console.log(files);
 });

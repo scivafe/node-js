@@ -14,6 +14,7 @@ fs.readdir(QUOTES_DIR, (err, files) => {
 
     fs.readFile(quoteFile, "utf-8", (err, data) => {
         if (err) {
+            // console.error, a differenza di console.log, stampa il testo in un canale di output dedicato agli errori (stderr)
             console.error(`Error while reading ${quoteFile} file`);
             process.exitCode = 1;
             return;
