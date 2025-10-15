@@ -29,6 +29,7 @@ function findBooks(q) {
     }
 }
 
+// htmlLayout restituisce il contenuto che il server invierà come risposta
 function htmlLayout(title, body) {
     return `
 <!doctype html>
@@ -49,6 +50,7 @@ const routes = {
         getJson: () => {
             return JSON.stringify({ message: library.message });
         },
+        // getHtml richiama htmlLayout con i parametri necessari
         getHtml: function () {
             return htmlLayout(
                 library.message,
@@ -66,6 +68,10 @@ const routes = {
         getJson: (q) => {
             return JSON.stringify(findBooks(q));
         },
+        // con Array.map() trasformiamo l'array di oggetti in un array di stringhe contenti html
+        // Array.join() viene chiamata sull'array di queste stringhe e ci permette di trasformarlo in un unica stringa che
+        // contiene tuta la sequenza di elementi HTML <li> generati da map(). Senza join() l'interpolazione dell'array
+        // all'interno di <ul> avrebbe inserito anche le parentesi quadre e le virgole della rappresentazione testuale degli array
         getHtml: function (q) {
             const booksLi = findBooks(q)
                 .map((b) => `<li>${b.author} - ${b.title}</li>`)
@@ -99,6 +105,8 @@ const server = http.createServer((req, res) => {
         const accepts = getAcceptedTypes(req);
         const q = searchParams.get("q");
 
+        // il browser invierà text/html tra i tipi contenuti all'interno di Accept
+        // mettiamo il formato HTML come quello da restituire in caso il client lo supporti
         if (accepts.textHtml || accepts.any) {
             resHtml(res, route.getHtml(q));
         } else if (accepts.json) {

@@ -43,9 +43,14 @@ const server = http.createServer((req, res) => {
         return;
     }
 
+    // dopo aver controllato se l'url richiesto è disponibile, usiamo la proprietà req.method per sapere con quale metodo è stata
+    // fatta la richiesta
+    // HEAD non prevede l'invio della risorsa richiestav ma solo degli header associati
     if (req.method === "HEAD") {
-        res.statusCode = 204;
+        res.statusCode = 204; // risposta vuota (no content), ossia la risorsa esiste ma non verrà inviata nella risposta
         res.end();
+        // se il metodo richiesto è GET il flusso di esecuzione è qello principale in cui viene restituita la risorsa contenuta
+        // nell'oggetto route in base al formato richiesto
     } else if (req.method === "GET") {
         const accepts = getAcceptedTypes(req);
         if (accepts.json) {
@@ -57,7 +62,7 @@ const server = http.createServer((req, res) => {
             res.end();
         }
     } else {
-        res.statusCode = 405;
+        res.statusCode = 405; // method not allowed (metodo non permesso per la risorsa indicata)
         res.end();
     }
 });

@@ -19,12 +19,15 @@ const library = {
     ],
 };
 
+// operazione di filtraggio dei libri
 function findBooks(q) {
+    // se riceve in input il parametro q filtra l'array books scegliendo i volumi con autore o titolo corrispondenti (/?q=testo)
     if (q) {
         return library.books.filter(
             (b) => b.author.includes(q) || b.title.includes(q)
         );
     } else {
+        // altrimenti restituisce l'intero array books
         return library.books;
     }
 }
@@ -50,9 +53,13 @@ const routes = {
 };
 
 const server = http.createServer((req, res) => {
+    // per permettere al server di accettare richieste con query params è necessario dividere la parte di path da quella di query
+    // grazie alla classe URL possiamo modificare il codice del server per ottenere il path e la query in modo separato
+    // pathname contiene il path e che usiamo per effettuare il routing
+    // searchParams è un oggetto che contiene tutti i parametri presenti nella query
     const { pathname, searchParams } = new URL(
         req.url,
-        `http://${req.headers.host}`
+        `http://${req.headers.host}` // stringa che rappresenza la parte iniziale dell'url usato per fare la richiesta
     );
 
     const route = routes[pathname];
@@ -67,6 +74,8 @@ const server = http.createServer((req, res) => {
         res.end();
     } else if (req.method === "GET") {
         const accepts = getAcceptedTypes(req);
+        // usiamo il metodo get(nomeParametro) esposto dall'oggetto searchParams per ottenere il valore del parametro q che usiamo come
+        // argomento delle funzioni per ottenere il corpo della risposta HTTP
         const q = searchParams.get("q");
         if (accepts.json) {
             resJson(res, route.getJson(q));
@@ -85,3 +94,5 @@ const server = http.createServer((req, res) => {
 server.listen(port, host, () => {
     console.log(`Server running at http://${host}:${port}/`);
 });
+
+// provare ad accedre all'indirizzo http://127.0.0.1/books?q=mondo e vedere l'elenco di libri corrispondenti

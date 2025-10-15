@@ -1,0 +1,2 @@
+curl -v -> restituisce la risposta http con gli header ad essa associati
+curl -X METHOD -> possiamo scegliere quale metodo usare per la richiesta (se non viene indicato con questa opzione è GET) es. curl -v -X HEAD http://127.0.0.1:3000

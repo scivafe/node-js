@@ -15,10 +15,15 @@ function resText(res) {
 }
 const server = http.createServer((req, res) => {
     // ["text/html", "application/xml;q=0.9", ...]
+    // Il metodo String.split() richiamato su qualsiasi stringa restituisce un array di sottostringhe dividendo quella
+    // iniziale in base alla stringa passata come parametro
     const acceptList = req.headers.accept.split(",");
     // ["text/html", "application/xml", ...]
+    // tramite Array.map() di ognuna delle stringhe ne viene presa solo la parte iniziale, quella contente il tipo
+    // l'array acceptedTypes contiene tutti i tipi che il client può accettare
     const acceptedTypes = acceptList.map((a) => a.split(";")[0]);
 
+    // usiamo la funzione Array.includes() per verificare se il tipo che ci interessa è presente
     const acceptJson = acceptedTypes.includes("application/json");
     const acceptText = acceptedTypes.includes("text/plain");
     const acceptAnyText = acceptedTypes.includes("text/*");

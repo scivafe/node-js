@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
     const acceptJson = req.headers.accept === "application/json";
     const acceptText = req.headers.accept === "text/plain";
     const acceptAnyText = req.headers.accept === "text/*";
-    const acceptAnyType = req.headers.accept === "*/*";
+    const acceptAnyType = req.headers.accept === "*/*"; // restituiamo la versione testuale (scelta non dettata da nessuno standard)
 
     if (acceptJson) {
         resJson(res);
